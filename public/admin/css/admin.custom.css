@@ -1,0 +1,85 @@
+﻿/**
+*
+* parsley form validate
+*
+*
+*/
+
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+    color: #468847;
+    background-color: #DFF0D8;
+    border: 1px solid #D6E9C6;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+    color: #B94A48;
+    background-color: #F2DEDE;
+    border: 1px solid #EED3D7;
+}
+
+.parsley-errors-list {
+    margin: 2px 0 3px;
+    padding: 0;
+    list-style-type: none;
+    font-size: 0.9em;
+    line-height: 0.9em;
+    opacity: 0;
+    color: #B94A48;
+    transition: all .3s ease-in;
+    -o-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    -webkit-transition: all .3s ease-in;
+}
+
+    .parsley-errors-list.filled {
+        opacity: 1;
+    }
+
+
+/**
+*
+*End parsley style
+*
+*/
+
+
+.upload-preview img {
+    height: 80px;
+    width: 80px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    cursor: pointer;
+}
+.hdn-uploder {
+    display: none;
+}
+.table-btn i.mdi {
+    font-size: 20px !important;
+    color: #fff;
+}
+.toggle-switch .toggle-slider{
+    background: red;
+}
+.tbl-icon{
+    font-size: 25px;
+}
+.table-btn {
+    padding: 3px 7px;
+}
+.full-width{
+    width: 100%;
+}
+.sidebar .nav.sub-menu .nav-item .nav-link {
+    font-size: 15px;
+}
+.sidebar .nav .nav-item .nav-link .menu-title {
+    font-size: 15px;
+}
+
+.dataTables_wrapper.dt-bootstrap4 .col-sm-12 {
+    overflow: auto;
+}

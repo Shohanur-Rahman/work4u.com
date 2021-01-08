@@ -1,0 +1,271 @@
+@extends('layouts.admin_layout')
+
+@section('content')
+<div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-custom">
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('admin_all_job')}}">Jobs</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span>New Job</span></li>
+          </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 mb-5">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">New Job</h4>
+          <p class="card-description">
+            field all required <span class="text-danger">*</span> field.
+          </p>
+          <form class="forms-sample" method="POST" action="{{ route('admin_save_job') }}" enctype="multipart/form-data" data-parsley-validate>
+          	@csrf
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <label class="w-100">Is Published</label>
+              <label class="toggle-switch toggle-switch-success">
+                <input type="checkbox" name="is_published" checked>
+                <span class="toggle-slider round"></span>
+              </label>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <label for="submit_email">Notification Email<span class="text-danger">*</span></label>
+              <input type="text" name="submit_email" class="form-control" id="submit_email" placeholder="Notification Email"  required="required">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <label for="txtName">Name<span class="text-danger">*</span></label>
+              <input type="text" name="name" class="form-control" id="txtName" placeholder="Job Name"  required="required">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <label for="hot_job_title">Hot Job Title<span class="text-danger">*</span></label>
+              <input type="text" name="hot_job_title" class="form-control" id="hot_job_title" placeholder="Hot Job Title"  required="required">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+
+             <div class="row">
+               <div class="col-md-3 col-sm-3 col-xs-12">
+                <label class="w-100">Entry Level</label>
+              <label class="toggle-switch toggle-switch-success">
+                <input type="checkbox" name="is_entry_level" checked>
+                <span class="toggle-slider round"></span>
+              </label>
+             </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <label class="w-100">Mid Level</label>
+              <label class="toggle-switch toggle-switch-success">
+                <input type="checkbox" name="is_mid_level" checked>
+                <span class="toggle-slider round"></span>
+              </label>
+             </div>
+
+             <div class="col-md-3 col-sm-3 col-xs-12">
+                <label class="w-100">Top Level</label>
+              <label class="toggle-switch toggle-switch-success">
+                <input type="checkbox" name="is_top_level" checked>
+                <span class="toggle-slider round"></span>
+              </label>
+             </div>
+             </div>
+
+            </div>
+
+            <div class="form-group">
+             <div class="row mb-3">
+               <div class="col-12">
+                  <h4 class="card-title">Employment Status</h4>
+               </div>
+             </div>
+             <div class="row">
+              @foreach($employmentStatus as $item)
+               <div class="col-md-2 col-sm-3 col-xs-12">
+                <label class="w-100">{{$item->name}}</label>
+                <label class="toggle-switch toggle-switch-success">
+                  <input type="checkbox" name="employment_status[]" value="{{$item->id}}">
+                  <span class="toggle-slider round"></span>
+                </label>
+             </div>
+             @endforeach
+           </div>
+         </div>
+
+           <div class="form-group">
+              <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <label for="company_name">Company<span class="text-danger">*</span></label>
+              <input type="text" name="company_name" class="form-control" id="company_name" placeholder="Company"  required="required">
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <label for="experience_required">Experience Required<span class="text-danger">*</span></label>
+              <input type="text" name="experience_required" class="form-control" id="experience_required" placeholder="Experience Required"  required="required">
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <label for="no_of_vacancy">Vacancy<span class="text-danger">*</span></label>
+              <input type="number" name="no_of_vacancy" class="form-control" id="no_of_vacancy" placeholder="Vacancy"  required="required">
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <label for="deadline_date">Deadline<span class="text-danger">*</span></label>
+              <input type="date" name="deadline_date" class="form-control" id="deadline_date" placeholder="Vacancy"  required="required">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <label for="country_id">Country<span class="text-danger">*</span></label>
+                 <select name="country_id" id="country_id" class="form-control" required="required">
+                    <option value="">-- Select Your Country --</option>
+                    @foreach($countries as $item)
+                      <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <label for="category_id">Category<span class="text-danger">*</span></label>
+                 <select name="category_id" id="category_id" class="form-control" required="required">
+                    <option value="">-- Select Your Category --</option>
+                    @foreach($categories as $item)
+                      <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <label for="salary_range">Salary<span class="text-danger">*</span></label>
+              <input type="text" name="salary_range" class="form-control" id="salary_range" placeholder="Salary"  required="required">
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label for="job_context">Job context<span class="text-danger">*</span></label>
+              <textarea id="job_context" class="form-control my_editor" rows="10" cols="30" name="job_context" aria-label="job_context" required="required"></textarea>
+            </div>
+
+
+            <div class="form-group">
+              <label for="special_instruction">Special Instruction for Job Seekers</label>
+              <textarea id="special_instruction" class="form-control my_editor" rows="10" cols="30" name="special_instruction" aria-label="special_instruction"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="apply_procedure">Apply procedure</label>
+              <textarea id="apply_procedure" class="form-control my_editor" rows="10" cols="30" name="apply_procedure" aria-label="apply_procedure"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="job_responsibility">Job responsibilities<span class="text-danger">*</span></label>
+              <textarea id="job_responsibility" class="form-control my_editor" rows="10" cols="30" name="job_responsibility" aria-label="job_responsibility" required="required"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="aditional_salary_info">Additional Salary Info</label>
+              <textarea id="aditional_salary_info" class="form-control my_editor" rows="10" cols="30" name="aditional_salary_info" aria-label="aditional_salary_info"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="educational_requirment">Educational requirements<span class="text-danger">*</span></label>
+              <textarea id="educational_requirment" class="form-control my_editor" rows="10" cols="30" name="educational_requirment" aria-label="educational_requirment" required="required"></textarea>
+            </div>
+
+         <div class="form-group">
+             <div class="row mb-3">
+               <div class="col-12">
+                  <h4 class="card-title">Compensation & other benefits</h4>
+               </div>
+             </div>
+             <div class="row">
+              @foreach($JobBenefites as $item)
+               <div class="col-md-2 col-sm-3 col-xs-12">
+                <label class="w-100">{{$item->name}}</label>
+                <label class="toggle-switch toggle-switch-success">
+                  <input type="checkbox" name="job_benefit[]" value="{{$item->id}}">
+                  <span class="toggle-slider round"></span>
+                </label>
+             </div>
+             @endforeach
+           </div>
+         </div>
+
+         <div class="form-group">
+              <label for="company_information">Company Information<span class="text-danger">*</span></label>
+              <textarea id="company_information" class="form-control my_editor" rows="10" cols="30" name="company_information" aria-label="company_information" required="required"></textarea>
+            </div>
+
+
+            <a class="btn btn-danger mr-2" href="{{route('admin_all_job')}}"> Back</a>
+            <button type="submit" class="btn btn-success">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        ActiveLeftSideMenuOnLoad(".job_nav ", 5);
+      var editor = $(".my_editor").kendoEditor({
+          tools: [
+              "bold",
+              "italic",
+              "underline",
+              "strikethrough",
+              "justifyLeft",
+              "justifyCenter",
+              "justifyRight",
+              "justifyFull",
+              "insertUnorderedList",
+              "insertOrderedList",
+              "indent",
+              "outdent",
+              "createLink",
+              "unlink",
+              "insertImage",
+              "insertFile",
+              "subscript",
+              "superscript",
+              "tableWizard",
+              "createTable",
+              "addRowAbove",
+              "addRowBelow",
+              "addColumnLeft",
+              "addColumnRight",
+              "deleteRow",
+              "deleteColumn",
+              "mergeCellsHorizontally",
+              "mergeCellsVertically",
+              "splitCellHorizontally",
+              "splitCellVertically",
+              "viewHtml",
+              "formatting",
+              "cleanFormatting",
+              "copyFormat",
+              "applyFormat",
+              "fontName",
+              "fontSize",
+              "foreColor",
+              "backColor",
+              "print"
+          ]
+      });
+    });
+  </script>
+
+@endsection
